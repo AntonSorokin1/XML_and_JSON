@@ -8,14 +8,14 @@ public class Product {
     private String model;
     private Calendar date;
     private String color;
-    private Integer price;
+    private Double price;
     private Integer number;
     private Boolean isAvailable;
 
     public Product() {
     }
 
-    public Product(String manufacturer, String model, Calendar date, String color, Integer price, Integer number, Boolean isAvailable) {
+    public Product(String manufacturer, String model, Calendar date, String color, Double price, Integer number, Boolean isAvailable) {
         this.manufacturer = manufacturer;
         this.model = model;
         this.date = date;
@@ -54,10 +54,10 @@ public class Product {
         this.color = color;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

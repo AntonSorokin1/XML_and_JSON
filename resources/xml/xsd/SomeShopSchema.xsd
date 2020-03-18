@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="https://www.cs.com/">
+    <xs:element name="shop">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="categories">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="kitchen">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="technique" type="subcategory"/>
+                                        <xs:element name="hardware" type="subcategory"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="bedroom">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="technique" type="subcategory"/>
+                                        <xs:element name="hardware" type="subcategory"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="livingRoom">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="technique" type="subcategory"/>
+                                        <xs:element name="hardware" type="subcategory"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="subcategory">
+        <xs:sequence>
+            <xs:element name="product" type="product"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="product">
+        <xs:attribute name="manufacturer" type="xs:string"/>
+        <xs:attribute name="model"        type="model"/>
+        <xs:attribute name="date"         type="xs:string"/>
+        <xs:attribute name="color"        type="xs:string"/>
+        <xs:attribute name="price"        type="xs:double"/>
+        <xs:attribute name="number"       type="xs:integer"/>
+        <xs:attribute name="isAvailable"  type="xs:boolean"/>
+    </xs:complexType>
+
+    <xs:complexType name="model">
+        <xs:attribute name="batch" type="xs:string"/>
+        <xs:attribute name="number" type="xs:integer"/>
+    </xs:complexType>
+</xs:schema>
