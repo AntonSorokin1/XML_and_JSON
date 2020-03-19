@@ -23,7 +23,9 @@ public class XMLTask {
             while ((input = br.readLine()) != null) {
                 sb.append(input);
             }
-            System.out.println(jsonxmlConvertor.XMLToJSON(sb.toString()));
+            String jsonString = jsonxmlConvertor.XMLToJSON(sb.toString());
+            System.out.println(jsonString);
+            System.out.println(jsonxmlConvertor.JSONToXML(jsonString));
         }
         catch (Exception e) {
             e.printStackTrace();
