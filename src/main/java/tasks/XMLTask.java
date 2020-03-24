@@ -1,34 +1,59 @@
 package tasks;
 
-import utilities.JSONXMLConvertor;
+import entity.Shop;
 import utilities.StaxStreamProcessor;
+import utilities.JSONObjectConverter;
+import utilities.XMLObjectConverter;
 
+import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 import java.io.*;
 
 public class XMLTask {
     public void start() {
-        try (StaxStreamProcessor processor = new StaxStreamProcessor(new FileInputStream(new File("src/main/resources/xml/SomeShop.xml")))) {
-            while (processor.startElement("product", "categories")) {
+        // XML-/JSON-file
+        File xmlFile = new File("src/main/resources/xml/SomeShop.xml");
+        File jsonFile = new File("src/main/resources/json/SomeShop.json");
+
+        // Read XML attributes
+        try (StaxStreamProcessor processor = new StaxStreamProcessor(new FileInputStream(xmlFile))) {
+            while (processor.startElement("product", "subCategory")) {
                 System.out.println(processor.getAllAttributes());
             }
         } catch (XMLStreamException | FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        JSONXMLConvertor jsonxmlConvertor = new JSONXMLConvertor();
-        try (BufferedReader br = new BufferedReader(new FileReader(new File("src/main/resources/xml/SomeShop.xml")))) {
-            StringBuilder sb = new StringBuilder();
-            String input;
-            while ((input = br.readLine()) != null) {
-                sb.append(input);
-            }
-            String jsonString = jsonxmlConvertor.XMLToJSON(sb.toString());
+        // XML-Object-JSON Converter
+        try {
+            // Converters
+            XMLObjectConverter xmlObjectConverter = new XMLObjectConverter();
+            JSONObjectConverter jsonObjectConverter = new JSONObjectConverter();
+
+            // XML to Object
+            Shop xmlShop = xmlObjectConverter.XMLToObject(xmlFile);
+            System.out.println(xmlShop.toString());
+            // Object to XML
+            String xmlString = xmlObjectConverter.ObjectToXML(xmlShop);
+            System.out.println(xmlString);
+
+            // JSON to Object
+            Shop jsonShop = jsonObjectConverter.jsonToObject(jsonFile);
+            System.out.println(jsonShop.toString());
+            // Object to JSON
+            String jsonString = jsonObjectConverter.objectToJSON(jsonShop);
             System.out.println(jsonString);
-            System.out.println(jsonxmlConvertor.JSONToXML(jsonString));
+
+            // XML to JSON
+            String convertedJSONString = jsonObjectConverter.objectToJSON(xmlObjectConverter.XMLToObject(xmlFile));
+            System.out.println(convertedJSONString);
+            // JSON to XML
+            String convertedXMLString = xmlObjectConverter.ObjectToXML(jsonObjectConverter.jsonToObject(jsonFile));
+            System.out.println(convertedXMLString);
         }
-        catch (Exception e) {
+        catch (JAXBException | IOException e) {
             e.printStackTrace();
         }
+
     }
 }

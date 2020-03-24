@@ -1,8 +1,16 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlType;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
+@JsonAutoDetect
+@XmlType(name = "product")
 public class Product {
     private String manufacturer;
     private String model;
@@ -25,6 +33,7 @@ public class Product {
         this.isAvailable = isAvailable;
     }
 
+    @XmlAttribute
     public String getManufacturer() {
         return manufacturer;
     }
@@ -32,6 +41,7 @@ public class Product {
         this.manufacturer = manufacturer;
     }
 
+    @XmlAttribute
     public String getModel() {
         return model;
     }
@@ -39,14 +49,17 @@ public class Product {
         this.model = model;
     }
 
+    @XmlAttribute
     public String getDate() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         return simpleDateFormat.format(date.getTime());
     }
-    public void setDate(Calendar date) {
-        this.date = date;
+    public void setDate(String date) throws ParseException {
+        if (this.date == null) this.date = Calendar.getInstance();
+        this.date.setTime(new SimpleDateFormat("dd-MM-YYYY", Locale.ENGLISH).parse(date));
     }
 
+    @XmlAttribute
     public String getColor() {
         return color;
     }
@@ -54,6 +67,7 @@ public class Product {
         this.color = color;
     }
 
+    @XmlAttribute
     public Double getPrice() {
         return price;
     }
@@ -61,6 +75,7 @@ public class Product {
         this.price = price;
     }
 
+    @XmlAttribute
     public Integer getNumber() {
         return number;
     }
@@ -68,10 +83,24 @@ public class Product {
         this.number = number;
     }
 
+    @XmlAttribute
     public Boolean getAvailable() {
         return isAvailable;
     }
     public void setAvailable(Boolean available) {
         isAvailable = available;
+    }
+
+    @Override
+    public String toString() {
+        return "product: { " +
+                "manufacturer='" + manufacturer + '\'' +
+                ", model='" + model + '\'' +
+                ", date=" + date.get(Calendar.DAY_OF_MONTH) + "-" + date.get(Calendar.MONTH) + "-" + date.get(Calendar.YEAR) +
+                ", color='" + color + '\'' +
+                ", price=" + price +
+                ", number=" + number +
+                ", isAvailable=" + isAvailable +
+                " }";
     }
 }

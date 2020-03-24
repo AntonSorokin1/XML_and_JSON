@@ -36,7 +36,7 @@ public class StaxStreamProcessor implements AutoCloseable {
         sb.append("[");
         for (int i = 0, end = reader.getAttributeCount(); i < end; i++) {
             sb.append(reader.getAttributeValue(i));
-            if (i < end - 1) { sb.append("; "); }
+            if (i < end - 1) { sb.append(", "); }
         }
         sb.append("]");
         return sb.toString();

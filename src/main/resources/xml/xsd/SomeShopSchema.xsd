@@ -2,46 +2,24 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="https://www.cs.com/">
     <xs:element name="shop">
         <xs:complexType>
-            <xs:sequence>
-                <xs:element name="categories">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element name="kitchen">
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element name="technique" type="subcategory"/>
-                                        <xs:element name="hardware" type="subcategory"/>
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
-                            <xs:element name="bedroom">
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element name="technique" type="subcategory"/>
-                                        <xs:element name="hardware" type="subcategory"/>
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
-                            <xs:element name="livingRoom">
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element name="technique" type="subcategory"/>
-                                        <xs:element name="hardware" type="subcategory"/>
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
+            <xs:sequence maxOccurs="unbounded">
+                <xs:element name="category" type="category"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
+    <xs:complexType name="category">
+        <xs:sequence maxOccurs="unbounded">
+            <xs:element name="subcategory" type="subcategory"/>
+        </xs:sequence>
+        <xs:attribute name="categoryName" type="xs:string"/>
+    </xs:complexType>
 
     <xs:complexType name="subcategory">
-        <xs:sequence>
+        <xs:sequence maxOccurs="unbounded">
             <xs:element name="product" type="product"/>
         </xs:sequence>
+        <xs:attribute name="subCategoryName" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="product">
